@@ -73,4 +73,5 @@ if __name__ == "__main__":
         print(w.number_of_libraries)
         for l in w.libraries:
             print(f'{l.id} {l.number_of_books}')
-            print(sort_books(l.books))
+            sorted_books = sort_books(l.books)
+            print(' '.join(str(b.id) for b in sorted_books))
