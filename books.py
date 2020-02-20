@@ -15,6 +15,9 @@ class Library:
         self.books_per_day = books_per_day
         self.books = []
 
+    def get_score(self, days_for_scanning):
+        return (days_for_scanning - self.signup_days) * self.books_per_day
+
 
 class Book:
     def __init__(self, id, score):
@@ -42,12 +45,17 @@ class World:
             lx = Library(i, line[0], line[1], line[2])
 
             # read books from this library
-            book_ids = self._readline(file)
-            for bid in book_ids:
-                lx.books.append(Book(bid, self.book_scores[bid]))
+            books = []
+            for bid in self._readline(file):
+                books.append(Book(bid, self.book_scores[bid]))
+            # add books to library, sorted by score
+            lx.books = self.sort_books(books)
 
             # add this library
             self.libraries.append(lx)
+
+    def sort_books(self, books):
+        return sorted(books, key=lambda x: x.score, reverse=True)
 
     def _readline(self, file):
         """Return a list of integers."""
@@ -60,8 +68,6 @@ class World:
 
 
 
-def sort_books(books):
-    return sorted(books, key=lambda x: x.score, reverse=True)
 
 
 if __name__ == "__main__":
@@ -79,7 +85,7 @@ if __name__ == "__main__":
         libraries_output = []
         for l in w.libraries:
             books_to_ship = []
-            for b in sort_books(l.books):
+            for b in l.books:
                 if b.id not in shipped_book_ids:
                     books_to_ship.append(b)
                     shipped_book_ids[b.id] = True
