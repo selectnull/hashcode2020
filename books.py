@@ -74,7 +74,9 @@ if __name__ == "__main__":
         # and later skip if it's already been shipped
         shipped_book_ids = {}
 
-        print(w.number_of_libraries)
+        # print(w.number_of_libraries)
+        number_of_libraries = 0
+        libraries_output = []
         for l in w.libraries:
             books_to_ship = []
             for b in sort_books(l.books):
@@ -82,5 +84,11 @@ if __name__ == "__main__":
                     books_to_ship.append(b)
                     shipped_book_ids[b.id] = True
 
-            print(f'{l.id} {len(books_to_ship)}')
-            print(' '.join(str(b.id) for b in books_to_ship))
+            if books_to_ship:
+                number_of_libraries += 1
+                libraries_output.append(f'{l.id} {len(books_to_ship)}')
+                libraries_output.append(' '.join(str(b.id) for b in books_to_ship))
+
+        print(number_of_libraries)
+        for x in libraries_output:
+            print(x)
