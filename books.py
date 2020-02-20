@@ -16,9 +16,12 @@ class Library:
         self.books = []
 
     def get_score(self, days_for_scanning):
-        MAGIC = 42
-        first_n_books = (days_for_scanning - self.signup_days) * self.books_per_day // 42
-        return sum(b.score for b in self.books[:first_n_books])
+        if self.books_per_day // self.number_of_books < 1:
+            MAGIC = 42
+            first_n_books = (days_for_scanning - self.signup_days) * self.books_per_day // 42
+            return sum(b.score for b in self.books[:first_n_books])
+        else:
+            return -self.signup_days
 
 
 class Book:
