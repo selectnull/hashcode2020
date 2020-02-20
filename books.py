@@ -70,8 +70,17 @@ if __name__ == "__main__":
     with open(filename) as f:
         w = World(f)
 
+        # for each book we ship, we'll store its id
+        # and later skip if it's already been shipped
+        shipped_book_ids = {}
+
         print(w.number_of_libraries)
         for l in w.libraries:
-            print(f'{l.id} {l.number_of_books}')
-            sorted_books = sort_books(l.books)
-            print(' '.join(str(b.id) for b in sorted_books))
+            books_to_ship = []
+            for b in sort_books(l.books):
+                if b.id not in shipped_book_ids:
+                    books_to_ship.append(b)
+                    shipped_book_ids[b.id] = True
+
+            print(f'{l.id} {len(books_to_ship)}')
+            print(' '.join(str(b.id) for b in books_to_ship))
