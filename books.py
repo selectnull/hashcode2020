@@ -16,7 +16,8 @@ class Library:
         self.books = []
 
     def get_score(self, days_for_scanning):
-        return (days_for_scanning - self.signup_days) * self.books_per_day
+        first_n_books = (days_for_scanning - self.signup_days) * self.books_per_day
+        return sum(b.score for b in self.books[:first_n_books])
 
 
 class Book:
@@ -37,7 +38,7 @@ class World:
         # book scores, second line of input
         self.book_scores = self._readline(file)
 
-        self.libraries = []
+        libraries = []
         # read each library
         for i, x in enumerate(range(self.number_of_libraries)):
             # read library header
@@ -52,10 +53,17 @@ class World:
             lx.books = self.sort_books(books)
 
             # add this library
-            self.libraries.append(lx)
+            libraries.append(lx)
+
+        self.libraries = self.sort_libraries(libraries)
 
     def sort_books(self, books):
         return sorted(books, key=lambda x: x.score, reverse=True)
+
+    def sort_libraries(self, libraries):
+        return sorted(libraries,
+                      key=lambda x: x.get_score(self.days_for_scanning),
+                      reverse=True)
 
     def _readline(self, file):
         """Return a list of integers."""
@@ -65,9 +73,6 @@ class World:
         return (f'{self.number_of_books} books, '
                 f'{self.number_of_libraries} libraries, '
                 f'{self.days_for_scanning} days')
-
-
-
 
 
 if __name__ == "__main__":
