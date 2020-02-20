@@ -1,0 +1,7 @@
+*.sw[po]
+*.pyc
+*.orig
+.DS_Store
+/logs/
+\#*\#
+*~
