@@ -60,6 +60,10 @@ class World:
 
 
 
+def sort_books(books):
+    return sorted(books, key=lambda x: x.score, reverse=True)
+
+
 if __name__ == "__main__":
     filename = sys.argv[1]
 
@@ -69,4 +73,4 @@ if __name__ == "__main__":
         print(w.number_of_libraries)
         for l in w.libraries:
             print(f'{l.id} {l.number_of_books}')
-            print(' '.join(str(b.id) for b in l.books))
+            print(sort_books(l.books))
