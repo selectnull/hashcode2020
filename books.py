@@ -3,6 +3,9 @@
 """ Hash Code 2020 solver.
 
 Using python 3.8.1
+
+Run:
+    ./books.py input-file.txt > output-file.out
 """
 
 import sys
