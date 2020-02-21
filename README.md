@@ -39,8 +39,8 @@ result files to `output`.
 The Team
 --------
 
-1. Igor Lulić - the math guy
-2. Sasha Matijasic - me, the coding guy
+1. [Igor Lulić](https://www.facebook.com/igor.lulic.58) - the math guy
+2. [Sasha Matijasic](https://github.com/selectnull) - me, the coding guy
 
 Licence
 -------
